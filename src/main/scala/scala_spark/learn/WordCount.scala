@@ -1,3 +1,4 @@
+package scala_spark.learn
 
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
@@ -5,9 +6,9 @@ import org.apache.spark.SparkContext
 object WordCount {
   def main(args:Array[String]){
     def conf=new SparkConf()
-      .setAppName("WordCount").setMaster("local");
-    val sc=new SparkContext(conf);
-    val lines=sc.textFile("/home/hdc/word");
+      .setAppName("WordCount").setMaster("local")
+    val sc=new SparkContext(conf)
+    val lines=sc.textFile("hdfs://localhost:9000/word")
     val words = lines.flatMap { line => line.split(" ") }
     val pairs = words.map { word => (word, 1) }
     val wordCounts = pairs.reduceByKey { _ + _ }
