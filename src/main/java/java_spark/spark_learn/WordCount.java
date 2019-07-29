@@ -1,3 +1,4 @@
+package java_spark.spark_learn;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,14 +19,12 @@ public class WordCount{
     public static void main(String[] args) {
         // 编写Spark应用程序
         // 本地执行，是可以执行在eclipse中的main方法中，执行的
-
         // 第一步：创建SparkConf对象，设置Spark应用的配置信息
         // 使用setMaster()可以设置Spark应用程序要连接的Spark集群的master节点的url
         // 但是如果设置为local则代表，在本地运行
         SparkConf conf = new SparkConf()
                 .setAppName("WordCountLocal")
                 .setMaster("local");  //此时是在本地运行的若想要在spark集群中运行则删除此行，再来打包运行即可。
-
         // 第二步：创建JavaSparkContext对象
         // 在Spark中，SparkContext是Spark所有功能的一个入口，你无论是用java、scala，甚至是python编写
         // 都必须要有一个SparkContext，它的主要作用，包括初始化Spark应用程序所需的一些核心组件，包括
