@@ -1,0 +1,21 @@
+1.通配符
+    例如 import scala.math._
+
+2.:_*作为一个整体
+    例如 val s=sum(1 to 5 :_*)将1 to 5作为参数序列处理
+
+3.在元组中指代元素
+    例如 val t=Tuple("hdc",1,4) t._1="hdc",t._2=1,t._3=4
+
+4.函数式编程中指待函数
+    例如 def func(x:Int):Int=x*10
+        val func1=func _
+
+5.在list和集合中代表每一个元素
+    例如 val list=List(1,2,3)
+        val list1=list.map(_*10)    //list1=(10,20,30)
+
+6.在模式匹配中_表示以上情况都没有匹配上
+
+7.初始化表示缺省值
+    例如 var a:string=_
