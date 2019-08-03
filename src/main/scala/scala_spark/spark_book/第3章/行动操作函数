@@ -1,0 +1,19 @@
+collect()   返回RDD中的所有元素 rdd.collect()
+
+count() 返回RDD中元素的个数 rdd.count()
+
+countByValue()  求RDD中各个元素的个数 rdd.countByValue()
+
+take(num)   从RDD中返回num个元素
+
+top(num)    从RDD中返回最前面的num个元素
+
+takeOrdered(num)(ordering)  从RDD中按照提供的顺序返回最前面的num个元素    rdd.takeOrder(2)(myOrdering)
+
+reduce(func)    并行整合RDD中所有元素    rdd.reduce((x,y)=>x+y)或者rdd.reduce(_+_)
+
+fold(zero)(func)    跟reduce一样，但是需要自己提供初始值   rdd.reduce(0)((x,y)=>x+y)
+
+aggregate(zeroValue)(seq,com)   和reduce相似，看aggregate文件
+
+foreach(func)   对RDD中的每个元素使用给定的函数   rdd.freach(func)

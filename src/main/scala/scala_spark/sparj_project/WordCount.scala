@@ -1,16 +1,15 @@
-package scala_spark.learn
+package scala_spark.sparj_project
 
-import org.apache.spark.SparkConf
-import org.apache.spark.SparkContext
+import org.apache.spark.{SparkConf, SparkContext}
 
 object WordCount {
   def main(args:Array[String]){
-    def conf=new SparkConf()
+    val conf=new SparkConf()
       .setAppName("WordCount").setMaster("local")
     val sc=new SparkContext(conf)
-    val lines=sc.textFile("hdfs://localhost:9000/word")
-    val words = lines.flatMap { line => line.split(" ") }
-    val pairs = words.map { word => (word, 1) }
+    val lines=sc.textFile("/home/hdc/word")
+    val words = lines.flatMap(line => line.split(" "))
+    val pairs = words.map (word => (word, 1))
     val wordCounts = pairs.reduceByKey { _ + _ }
     wordCounts.foreach(wordCount => println(wordCount._1 + " appeared " + wordCount._2 + " times."))
   }

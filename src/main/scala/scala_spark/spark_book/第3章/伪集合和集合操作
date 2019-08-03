@@ -1,0 +1,10 @@
+1.去重distinct
+    RDD.distinct()转化操作来生成一个包含不同元素的新RDD
+2.并集union
+    求两个RDD的并集：rdd1.union(rdd2)
+3.交集intersection
+    求两个元素的交集：rdd1.intersection(rdd2)
+4.差集subtract
+    求两个集合的差集：rdd1.subtract(rdd2)(存在于rdd1中而不存在与rdd2中所有元素组成新的rdd)
+5.笛卡儿积
+    rdd1.cartesian(other)
