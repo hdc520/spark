@@ -1,0 +1,13 @@
+1.Function<T,R> 实现方法R call(T) 接受一个输入值(RDD中的元素)并返回一个输出值(新RDD中的元素)
+  一般用于map()和filter()等操作中。
+
+2.Function2<T1,T2,R> 实现方法 R call(T1,T2) 接受两个输出值并返回一个输出值
+  用于类似与aggregate()和fold()以及reduceByKey等操作中
+
+3.FlatMapFucntion<T,R> 实现方法Iterator<R> call(T) 接受一个输入值并返回任意个输出
+  用于类似于FlatMap()等操作中
+
+4.PairFunction<T1, T2, R> 实现方法Tuple2<T1, R> call(T2) 接受1个输入值并返回两个输出类型(二元组)
+  用于mapToPair(其实就是将每个元素，映射为一个(v1,v2)这样的Tuple2类型的元素)
+  JavaPairRDD的两个泛型参数，分别代表了tuple元素的第一个值(T2)和第二个值(R)的类型
+

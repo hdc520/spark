@@ -1,8 +1,5 @@
-package java_spark.spark_learn;
+package java_spark.spark_project;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -11,8 +8,11 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
-
 import scala.Tuple2;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class WordCount{
 
@@ -45,7 +45,7 @@ public class WordCount{
         // 在Java中，创建的普通RDD，都叫做JavaRDD
         // 在这里呢，RDD中，有元素这种概念，如果是hdfs或者本地文件呢，创建的RDD，每一个元素就相当于
         // 是文件里的一行
-        JavaRDD<String> lines = sc.textFile("hdfs://localhost:9000/word");
+        JavaRDD<String> lines = sc.textFile("/home/hdc/word");
 
         // 第四步：对初始RDD进行transformation操作，也就是一些计算操作
         // 通常操作会通过创建function，并配合RDD的map、flatMap等算子来执行
