@@ -17,3 +17,8 @@ fold(zero)(func)    跟reduce一样，但是需要自己提供初始值   rdd.re
 aggregate(zeroValue)(seq,com)   和reduce相似，看aggregate文件
 
 foreach(func)   对RDD中的每个元素使用给定的函数   rdd.freach(func)
+
+PS:
+转化操作：map    filter  flatMap groupByKey  reduceByKey sortByKey   join    cogroup
+行动操作：reduce collect count   take(n) saveTestFile    countByKey  foreach
+

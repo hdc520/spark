@@ -14,7 +14,7 @@ object aggregate {
         (acc._1+value,acc._2+1)
 
       },
-      (acc1,acc2)=>{
+      (acc1,acc2)=>{//acc1指的是初始化的值（单一值和元组都行）acc2指的是上个函数处理的结果
         println("acc1._1:"+acc1._1+" acc2._1:"+acc2._1+" acc1._2:"+acc1._2+" acc2._2:"+acc2._2)
         (acc1._1+acc2._1,acc1._2+acc2._2)
       }

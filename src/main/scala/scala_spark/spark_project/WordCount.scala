@@ -1,4 +1,4 @@
-package scala_spark.sparj_project
+package scala_spark.spark_project
 
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -10,7 +10,7 @@ object WordCount {
     val lines=sc.textFile("/home/hdc/word")
     val words = lines.flatMap(line => line.split(" "))
     val pairs = words.map (word => (word, 1))
-    val wordCounts = pairs.reduceByKey { _ + _ }
+    val wordCounts = pairs.reduceByKey ((x,y)=>x+y )
     wordCounts.foreach(wordCount => println(wordCount._1 + " appeared " + wordCount._2 + " times."))
   }
 }
