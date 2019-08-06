@@ -20,7 +20,7 @@ public class create_transform_RDD {
 
         //从集合中创建初始RDD方法
         //1.利用parallelize方法
-        JavaRDD<String> parallelizeRDD=sc.parallelize(list);
+        JavaRDD<String> parallelizeRDD=sc.parallelize(list,2);
         System.out.println(parallelizeRDD.partitions().size());
 
         //2.利用makeRDD,但是只有scala中才有这种方法。
