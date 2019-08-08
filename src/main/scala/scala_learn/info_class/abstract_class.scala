@@ -5,8 +5,8 @@ package scala_learn.info_class
 object abstract_class {
   abstract class person(val name:String){
     def sayHello:Unit //抽象方法
-    val age:Int =90      //抽象字段，没有给出初始值
-    val sex:String
+    val age:Int =90
+    val sex:String  //抽象字段，没有给出初始值
   }
 
   class student(name:String)extends person(name){

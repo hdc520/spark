@@ -12,7 +12,7 @@ object map_Tuple {
     println("names_ages(\"hdc\")："+names_ages("hdc")+"  names_ages(\"lsg\")："+names_ages1("lsg"))
 
     //创建可变map
-    println("---------创建可变map--------------------------------------")
+    println("------------------------------创建可变map-------------------")
     val Modify_names_ages=scala.collection.mutable.Map("Tom"->26,"Sam"->27)
     println("Modify_names_ages："+Modify_names_ages)
 
@@ -33,7 +33,7 @@ object map_Tuple {
     println("flag_names_ages："+flag_names_ages)//此时不存在返回no
 
     val flag_modify_names_ages=Modify_names_ages.getOrElse("Tom","yes")
-    println("flag_names_ages："+Modify_names_ages)
+    println("flag_modify_names_ages："+flag_modify_names_ages)
 
     println("-----------map的遍历--------------------------------------")
     //遍历键值对
@@ -56,9 +56,9 @@ object map_Tuple {
 
     //利用yield交换键值对
     val ages_names=for((key,value)<-names_ages) yield (value,key)
-    println("ages_names："+ages_names)
+    println("交换键值对："+ages_names)
 
-    //map的排序与插入
+    //map的排序与插入(按键)
     println("-----不可变map的排序-----")
     val sort_names_ages=scala.collection.immutable.SortedMap("zhangsan"->30,"lisi"->40)
     println("sort_names_ages："+sort_names_ages)

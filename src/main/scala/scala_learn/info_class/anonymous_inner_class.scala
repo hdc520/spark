@@ -1,6 +1,7 @@
 package scala_learn.info_class
 
 object anonymous_inner_class {
+
   class person(protected val name:String){
     def sayHello="Hello, i am "+name
   }

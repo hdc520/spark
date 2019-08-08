@@ -40,7 +40,7 @@ object define_field {
     helloWorld2.sex="boy"
     println(helloWorld2.sex)
     println("\n---------------------自定义getter和setter方法---------------------")
-    val s=new student
+    var s=new student
     println(s.name)
     s.name="lsg"
     println(s.name)

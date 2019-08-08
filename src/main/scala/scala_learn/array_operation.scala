@@ -18,6 +18,7 @@ object array_operation {
     println("-----可变数组使用关键字ArrayBuffer-----")
 
     val b1=ArrayBuffer[Int]()
+//    val b11=new ArrayBuffer("hdc","rer")
     b1+=1
     println("b1增加元素按单个:"+b1)
     b1++=Array(2,3,4,5) //数组加

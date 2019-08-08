@@ -24,7 +24,7 @@ object abstract_field {
   def main(args: Array[String]): Unit = {
     val p1=new person("hdc")
     val p2=new person("lsg")
-    p1.sayHello("p1")
+    p1.sayHello("hdc")
     p2.makefriends(p1)
   }
 

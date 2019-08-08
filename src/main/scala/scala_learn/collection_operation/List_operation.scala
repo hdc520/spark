@@ -10,7 +10,7 @@ object List_operation {
     println("取list集合的第一个元素："+list.head)
     println("将除list第一个元素外组成新的集合："+list.tail)
     list=0::list  //此时将0和最初的list合并，创建一个新的list付给list，
-    println("增加元素后list:"+"长度："+list.length+" 值："+list)
+    println("合并后的list:"+"长度："+list.length+" 值："+list)
     DiGui(list)
     val linkList=scala.collection.mutable.LinkedList(1,2,3,4)
     println("linkList："+linkList)
@@ -27,7 +27,7 @@ object List_operation {
   //递归为list每个元素增加标识
   def DiGui(list:List[Int]):Unit={
     if(list!=Nil){
-      println(list.head+"num")
+      println(list.head+" num")
       DiGui(list.tail)
     }
   }

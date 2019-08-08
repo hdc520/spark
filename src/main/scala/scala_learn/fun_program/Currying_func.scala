@@ -9,6 +9,7 @@ object Currying_func {
   def sum1(a:Int,b:Int)=a+b
   def sum2(a:Int)=(b:Int)=>a+b
   def sum3(a:Int)(b:Int)=a+b
+  def sum4(a:Int)(b:Int)(c:Int)=a+b+c
 
   def main(args: Array[String]): Unit = {
     println("sum1："+sum1(2,5))

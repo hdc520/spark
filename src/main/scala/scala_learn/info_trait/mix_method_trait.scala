@@ -12,7 +12,7 @@ object mix_method_trait {
 
   class person(val name:String)extends Valid{
     println(valid)
-    override def getName: String = name
+    def getName: String = name
   }
 
   def main(args: Array[String]): Unit = {
