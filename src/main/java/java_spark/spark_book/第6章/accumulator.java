@@ -21,7 +21,6 @@ public class accumulator {
                 SumAccumulator.add(integer);
             }
         });
-
         System.out.println(SumAccumulator.value());
     }
 }
