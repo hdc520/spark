@@ -37,7 +37,7 @@ object map_Tuple {
 
     println("-----------map的遍历--------------------------------------")
     //遍历键值对
-    println("--遍历键值对--")
+    println("-----------遍历键值对----------------")
     for((key,value)<-names_ages){
       println("key："+key+" value："+value)
     }
