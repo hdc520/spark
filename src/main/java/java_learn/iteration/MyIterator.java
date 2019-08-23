@@ -23,8 +23,9 @@ public class MyIterator implements Iterator<String> {
         while(myIterator.hasNext()){
             System.out.println(myIterator.next());
         }
-//        for(String str:MyIterator){
+        for(String str:myIterator.elem){
+            System.out.println(str);
 //            报错是因为实现foreach循环必须要实现Iterable接口
-//        }
+        }
     }
 }

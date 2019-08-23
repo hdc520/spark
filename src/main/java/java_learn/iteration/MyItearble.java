@@ -3,7 +3,7 @@ import java.lang.Iterable;
 import java.util.Iterator;
 
 public class MyItearble implements Iterable<Integer>{
-    private int elem[]={1,2,3,4,5,6,7};
+    private int []elem={1,2,3,4,5,6,7};
     private int size=elem.length;
 
     //匿名内部类，实现Iterable接口里的方法
