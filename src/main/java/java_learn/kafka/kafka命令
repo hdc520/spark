@@ -1,0 +1,25 @@
+zookeeper命令：
+启动：zkServer.sh start
+查看状态：zkServer.sh status
+
+kafka命令：
+启动：
+	bin/kafka-server-start.sh -daemon config/server.properties
+增删改查：
+	bin/kafka-topics.sh
+列举出topic：
+	  bin/kafka-topics.sh --zookeeper localhost:2181 --list
+创建topic
+bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic firstTopic --partitions 2 --replication-factor 2
+删除topic，下面是删除firstTopic
+bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic firstTopic
+查看firstTopic信息
+bin/kafka-topics.sh --zookeeper localhost --describe --topic firstTopic
+Isr: 0当成replication的子集。
+
+连接consumer和producer进行通讯
+bin/kafka-console-consumer.sh --topic firstTopic --bootstrap-server localhost:9092
+bin/kafka-console-producer.sh --topic firstTopic --broker-list localhost:9092
+
+修改分区数（记住分区只能是增加的修改）
+ bin/kafka-topics.sh --zookeeper localhost:2181 --alter --partitions 1 --topic firstTopic

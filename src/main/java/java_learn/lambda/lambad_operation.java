@@ -2,8 +2,8 @@ package java_learn.lambda;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-
+//java8函数式编程操作网站
+//https://blog.csdn.net/bitcarmanlee/article/details/70195403
 public class lambad_operation {
     public static class Employee{
         private String name;

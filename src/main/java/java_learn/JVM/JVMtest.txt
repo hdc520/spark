@@ -1,0 +1,28 @@
+Compiled from "JVMtest.java"
+public class java_learn.JVM.JVMtest {
+  public java_learn.JVM.JVMtest();  //构造方法的编译结果
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:                                   //下列0,3放在程序计数器中
+       0: invokestatic  #2                  // Method test:()V
+       3: return
+
+  public static void test();
+    Code:
+       0: iconst_1
+       1: istore_0
+       2: iconst_2
+       3: istore_1
+       4: iload_0
+       5: iload_1
+       6: imul
+       7: istore_2
+       8: getstatic     #3                  // Field java/lang/System.out:Ljava/io/PrintStream;
+      11: iload_2
+      12: invokevirtual #4                  // Method java/io/PrintStream.println:(I)V
+      15: return
+}
