@@ -18,7 +18,7 @@ import java.util.List;
 
 public class UpdateStateByKeyWordCount {
     public static void main(String[] args) throws Exception{
-        SparkConf conf=new SparkConf().setAppName("WordCount").setMaster("local[2]");
+        SparkConf conf=new SparkConf().setAppName("UpdateStateByKeyWordCount").setMaster("local[2]");
         JavaStreamingContext streamingContext=new JavaStreamingContext(conf, Durations.seconds(3));
         //首先如果要使用updatestatebykey，就必须设置一个checkpoint目录，开启checkpoint机制
         //这样就能把每个key对应的state除了在内存中存在，也要长期保存一份，内存数据丢失时，可以从checkpoint中恢复
@@ -46,7 +46,7 @@ public class UpdateStateByKeyWordCount {
         });
         //现在要统计全局的每个单词个数，就无法使用之前的那个方法，此时可以使用updateStateByKey
         JavaPairDStream<String,Integer>WordCounts=pairs.updateStateByKey(
-                //这里的Optional相当于scala中的样例类，代表一个值的存在状态，肯存在，也可能不存在
+                //这里的Optional相当于scala中的样例类，代表一个值的存在状态，可能存在，也可能不存在
                 new Function2<List<Integer>, Optional<Integer>, Optional<Integer>>() {
             @Override
             //对于每个单词每次batch计算的时候，都会调用这个函数
