@@ -19,6 +19,12 @@ public class pairRDD {
                 return new Tuple2<String, String>(x.split(" ")[0],x);
             }
         });
+        /*或者
+        JavaPairRDD<String,String> pairRdd=inputRDD.mapToPair(
+                (PairFunction<String, String, String>) x ->
+                        new Tuple2<String, String>(x.split(" ")[0],x)
+        );
+         */
         System.out.println(pairRdd.collect().toString());
 
         JavaPairRDD<String,String> lowerPairRDD=pairRdd.filter(new Function<Tuple2<String, String>, Boolean>() {
