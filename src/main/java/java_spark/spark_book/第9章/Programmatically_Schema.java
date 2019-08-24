@@ -33,7 +33,7 @@ public class Programmatically_Schema {
             fields.add(field);
         }
         StructType schema=DataTypes.createStructType(fields);
-
+        //将rowRDD变成Dataset
         Dataset<Row>pDF=sparkSession.createDataFrame(rowJavaRDD,schema);
         pDF.createOrReplaceTempView("person");
         Dataset<Row>nameDS=sparkSession.sql("select name from person");
@@ -41,5 +41,6 @@ public class Programmatically_Schema {
         nameDS.map(
                 (MapFunction<Row,String>)row->"name:"+row.getString(0), Encoders.STRING()
         ).show();
+        nameDS.write().format("csv").save("/home/hdc/data/csv");
     }
 }
