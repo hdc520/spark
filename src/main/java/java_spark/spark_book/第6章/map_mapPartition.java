@@ -56,7 +56,7 @@ public class map_mapPartition {
         resMapPartiton.foreachPartition(new VoidFunction<Iterator<Integer>>() {
             public void call(Iterator<Integer> x) throws Exception {
                 while (x.hasNext()){
-                    System.out.println("foreachPartition"+x.next());
+                    System.out.println("foreachPartition:"+x.next());
                 }
             }
         });
