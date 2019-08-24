@@ -34,6 +34,7 @@ public class flection_class {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("flection_class").setMaster("local");
         SparkSession sparkSession=SparkSession.builder().config(conf).getOrCreate();
+        //先生成普通ＲＤＤ
         JavaRDD<person>personJavaRDD=sparkSession.read()
                 .textFile("/home/hdc/data/data2")
                 .javaRDD()
@@ -45,7 +46,7 @@ public class flection_class {
                         return p;
                     }
                 );
-        //使用反射机制，将RDD转换为Dataset
+        //使用反射机制，将普通RDD转换为Dataset
         //即将person.class传入进去，其实就是用反射机制来创建Dataset
         Dataset<Row> pDF=sparkSession.createDataFrame(personJavaRDD,person.class);
         //拿到dataset就可以将其注册为一个临时表（临时视图）
