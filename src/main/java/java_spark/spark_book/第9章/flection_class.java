@@ -53,7 +53,7 @@ public class flection_class {
         Dataset<Row> sDF=sparkSession.sql(
                 "select name,age from student where age between 25 and 30"
         );
-        //将Dataset转换成RDD
+        //将Dataset转换成RDD<Row>
         JavaRDD<Row>pRDD=sDF.javaRDD();
         //将RDD中的数据映射为person
         JavaRDD<person> personJavaRDD1=pRDD.map(new Function<Row, person>() {
