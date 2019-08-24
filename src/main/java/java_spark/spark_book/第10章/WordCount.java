@@ -20,7 +20,7 @@ public class WordCount {
         //创建sparkconf对象
         SparkConf conf=new SparkConf().setAppName("WordCount").setMaster("local[2]");
 
-        //创建javastreamingcontext对象,每隔2秒划分一个batch
+        //创建javastreamingcontext对象,每隔2秒划分一个batch即每个batch interval和Dstream都只会对应一个RDD
         JavaStreamingContext streamingContext=new JavaStreamingContext(conf, Durations.seconds(2));
 
         //创建输入Dstremam，代表从数据源（kafka，socket）获取的持续不断的数据流
