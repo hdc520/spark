@@ -1,5 +1,6 @@
 package scala_learn.info_class
 
+//scala中只有主构造器才能构造父类的构造器
 object primary_second_constractor {
   class person(var name:String,var age:Int)
   {
