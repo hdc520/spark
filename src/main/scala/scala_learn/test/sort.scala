@@ -5,7 +5,7 @@ object sort {
     println(select_sort(num = Array(3,2,1)).mkString("  "))
 
     print("冒泡排序(降序)：")
-    println(bubbling_sort(num = Array(3,1,2)).mkString("  "))
+    println(bubbling_sort(num = Array(3,1,1,1,1,5,3)).mkString("  "))
 
   }
   //选择排序从小到大
@@ -25,7 +25,7 @@ object sort {
   def bubbling_sort(num:Array[Int]):Array[Int]={
     var flag=1
     var count=0
-    while(count<num.length&&flag==1){
+    while(flag==1){
        flag=0
         for(j<-0 until (num.length-1,1)){
           if(num(j)<num(j+1)){
@@ -34,9 +34,9 @@ object sort {
             num(j+1)=temp
             flag=1
           }
+
         }
     }
-
     return num
   }
 }
