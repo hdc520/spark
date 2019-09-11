@@ -21,11 +21,11 @@ public class read_Parquet {
         List<String> userNameList=userNameDF.javaRDD().map(new Function<Row, String>() {
             public String call(Row row) throws Exception{
                 return row.getString(0);
+                //row.getAs(0)
             }
         }).collect();
         for(String name:userNameList){
             System.out.println("name:"+name);
         }
-
     }
 }

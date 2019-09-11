@@ -23,7 +23,7 @@ public class KafkaReceiverWordCount {
         topicThreadmap.put("WordCount",1);
         JavaPairReceiverInputDStream<String, String> lines = KafkaUtils.createStream(
                 javaStreamingContext, "localhost:2181",
-                "DefaultConsumerGroup", topicThreadmap
+                "1205", topicThreadmap
         );
         JavaDStream<String>words=lines.flatMap(new FlatMapFunction<Tuple2<String, String>, String>() {
             @Override

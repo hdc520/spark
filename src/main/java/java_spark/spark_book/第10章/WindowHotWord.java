@@ -45,9 +45,9 @@ public class WindowHotWord {
             public Integer call(Integer v1, Integer v2) throws Exception {
                 return null;
             }
-        },Durations.seconds(20),Durations.seconds(4));//窗口长度40秒，滑动间隔10秒
-        //因为一个batch的时间间隔是5秒，整个窗口的大小为60秒，故每个窗口有60/5=12个RDD。
-        //执行transform操作，因为一个窗口就是一个60秒的数据，会变成一个RDD，然后对这一个RDD
+        },Durations.seconds(20),Durations.seconds(4));//窗口长度20秒，滑动间隔4秒
+        //因为一个batch的时间间隔是2秒，整个窗口的大小为20秒，故每个窗口有20/2=10个RDD。
+        //执行transform操作，因为一个窗口就是一个20秒的数据，会变成一个RDD，然后对这一个RDD
         //根据每个搜索词出现的频率进行排序，然后获取排名前三的单词
         JavaPairDStream<String,Integer>finalDstream=searchWordCountsPair.transformToPair(
                 new Function<JavaPairRDD<String, Integer>, JavaPairRDD<String, Integer>>() {

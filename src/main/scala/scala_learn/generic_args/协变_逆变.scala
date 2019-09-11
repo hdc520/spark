@@ -1,7 +1,7 @@
 package scala_learn.generic_args
 
 //在java中，例如professional是master的子类，card[professional]不是card[master]的子类
-//但是在java中可以通过协变与逆变进行相互转化
+//但是在scala中可以通过协变与逆变进行相互转化
 
 object 协变_逆变 {
   class Master

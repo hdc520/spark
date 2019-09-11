@@ -7,7 +7,8 @@ object WordCount {
     val conf=new SparkConf()
       .setAppName("WordCount").setMaster("local")
     val sc=new SparkContext(conf)
-    val lines=sc.textFile("/home/hdc/word")
+    val lines=sc.textFile("hdfs://localhost:9000/data/word")
+    println(lines.take(1).mkString("").getClass.getSimpleName)
     val words = lines.flatMap(line => line.split(" "))
     val pairs = words.map (word => (word, 1))
     /*

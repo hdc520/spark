@@ -24,7 +24,6 @@ public class ProducerCallback {
                     new ProducerRecord<String, String>("firstTopic",i+" ","Message "+i)
             );
         }
-
         //关闭生产者
         producer.close();
     }

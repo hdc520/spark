@@ -7,17 +7,17 @@ public class JVMtest_dui {
     byte bytes[]=new byte[1024*100];
 
     public static void main(String[] args) throws Exception{
-        Thread.sleep(2000);
+        Thread.sleep(500);
         System.out.println("begin");
         test();
     }
 
     public static void test()throws Exception{
-        Thread.sleep(5000);
+        Thread.sleep(1500);
         List list=new ArrayList<>();
         System.out.println("------------start-----------");
-        for(int i=0;i<2000;i++){
-            Thread.sleep(16);
+        for(int i=0;i<100;i++){
+            Thread.sleep(10);
             list.add(new JVMtest_dui());
         }
     }

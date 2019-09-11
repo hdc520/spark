@@ -8,7 +8,7 @@ object map_Tuple {
     val names_ages1=Map(("hdc",23),("lsg",25))
     //names_ages("hdc")=24,此种写法错误，只能对map进行无修改操作.
     println("names_ages："+names_ages)
-    println("names_ages1"+names_ages1)
+    println("names_ages1:"+names_ages1)
     println("names_ages(\"hdc\")："+names_ages("hdc")+"  names_ages(\"lsg\")："+names_ages1("lsg"))
 
     //创建可变map

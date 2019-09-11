@@ -12,13 +12,13 @@ public class SyncProducer {
     public static void main(String[] args) throws Exception{
         //创建一个生产者对象
         Properties properties=new Properties();
+        //配置生产者信息
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
         properties.put(ProducerConfig.ACKS_CONFIG,"all");
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG,16384);
         properties.put(ProducerConfig.LINGER_MS_CONFIG,1);
-
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
         //调用send方法

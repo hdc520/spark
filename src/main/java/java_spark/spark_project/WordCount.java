@@ -46,7 +46,6 @@ public class WordCount{
         // 在这里呢，RDD中，有元素这种概念，如果是hdfs或者本地文件呢，创建的RDD，每一个元素就相当于
         // 是文件里的一行
         JavaRDD<String> lines = sc.textFile("/home/hdc/data/word",2);
-
         // 第四步：对初始RDD进行transformation操作，也就是一些计算操作
         // 通常操作会通过创建function，并配合RDD的map、flatMap等算子来执行
         // function，通常，如果比较简单，则创建指定Function的匿名内部类
@@ -56,10 +55,7 @@ public class WordCount{
         // 我们这里呢，输入肯定是String，因为是一行一行的文本，输出，其实也是String，因为是每一行的文本
         // 这里先简要介绍flatMap算子的作用，其实就是，将RDD的一个元素，给拆分成一个或多个元素
         JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
-
             private static final long serialVersionUID = 1L;
-
-
             public Iterator<String> call(String s) throws Exception {
                 List<String> list = new ArrayList<String>();
                 String[] arr = s.split(" ");
@@ -68,7 +64,6 @@ public class WordCount{
                 }
                 return list.iterator() ;
             }
-
         });
 
         // 接着，需要将每一个单词，映射为(单词, 1)的这种格式
