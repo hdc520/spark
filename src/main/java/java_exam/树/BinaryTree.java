@@ -23,38 +23,6 @@ public class BinaryTree {
             createTreeByRecursion(treeNodes);
     }
 
-    ////利用先序和中序求树
-    public Node reConstructBinaryTreeCore(int[] pre, int[] in,
-                                          int preStart, int preEnd,
-                                          int inStart, int inEnd) {
-        Node tree = new Node(String.valueOf(pre[preStart]));
-        tree.left = null;
-        tree.right = null;
-        if (preStart == preEnd && inStart == inEnd) {
-            return tree;
-        }
-        int root = 0;
-        for (root = inStart; root < inEnd; root++) {
-            if (pre[preStart] == in[root]) {
-                break;
-            }
-        }
-        int leifLength = root - inStart;
-        int rightLength = inEnd - root;
-        if (leifLength > 0) {
-            tree.left = reConstructBinaryTreeCore(pre, in,
-                    preStart + 1, preStart + leifLength,
-                    inStart, root - 1);
-        }
-        if (rightLength > 0) {
-            tree.right = reConstructBinaryTreeCore(pre, in,
-                    preStart + 1 + leifLength, preEnd,
-                    root + 1, inEnd);
-        }
-        return tree;
-    }
-
-
     private int createTreeByRecursion(Node node, String[] treeNodes, int n) {
         if ("#".equals(treeNodes[n]))
             return n + 1;
@@ -150,15 +118,51 @@ public class BinaryTree {
         }
     }
 
+
+    ////利用先序和中序求树
+    public Node reConstructBinaryTreeCore(int[] pre, int[] in,
+                                          int preStart, int preEnd,
+                                          int inStart, int inEnd) {
+        Node tree = new Node(String.valueOf(pre[preStart]));
+        tree.left = null;
+        tree.right = null;
+        if (preStart == preEnd && inStart == inEnd) {
+            return tree;
+        }
+        int root = 0;
+        for (root = inStart; root < inEnd; root++) {
+            if (pre[preStart] == in[root]) {
+                break;
+            }
+        }
+        int leifLength = root - inStart;
+        int rightLength = inEnd - root;
+        if (leifLength > 0) {
+            tree.left = reConstructBinaryTreeCore(pre, in,
+                    preStart + 1, preStart + leifLength,
+                    inStart, root - 1);
+        }
+        if (rightLength > 0) {
+            tree.right = reConstructBinaryTreeCore(pre, in,
+                    preStart + 1 + leifLength, preEnd,
+                    root + 1, inEnd);
+        }
+        return tree;
+    }
+
     // 树高 递归，分别求出左子树的深度、右子树的深度，两个深度的较大值+1
     public int getHeightByRecursion(Node node) {
 
         if (node == null) {
             return 0;
         }
-        int left = getHeightByRecursion(node.left);
-        int right = getHeightByRecursion(node.right);
-        return 1 + Math.max(left, right);
+        int left = getHeightByRecursion(node.left)+1;
+        int right = getHeightByRecursion(node.right)+1;
+        if(left>right)
+            return left;
+        else
+            return right;
+//        return Math.max(left, right);
 
     }
 
@@ -176,90 +180,47 @@ public class BinaryTree {
 
     // 利用层序遍历,得到树的最大宽度
     public void printMaxWidth() {
-
-        Queue<Node> queue = new LinkedList<>();
-        Queue<Node> queueTemp = new LinkedList<>();
-
-        int maxWidth = 1;
-
-        Node tempNode = root;
-
-        queue.offer(tempNode);
-
-        while (!queue.isEmpty()) {
-
-            while (!queue.isEmpty()) {
-
-                Node topNode = queue.poll();
-
-                if (topNode == null)
-                    continue;
-
-                if (topNode.left.data != null) {
-
-                    queueTemp.offer(topNode.left);
-                }
-
-                if (topNode.right.data != null) {
-
-                    queueTemp.offer(topNode.right);
-                }
-
+        int front=-1,rear=-1,last=0;
+        int levelNum=0;//每层节点的个数
+        int maxNum=-1;//树的宽度
+        int high=0;//树的高度
+        Node queue[]=new Node[100];
+        Node p=root;
+        queue[++rear]=p;
+        while(front<rear){
+            p=queue[++front];
+            levelNum++;
+            if(p.left.data!=null){
+                queue[++rear]=p.left;
             }
-            maxWidth = Math.max(maxWidth, queueTemp.size());
-            queue = queueTemp;
-            queueTemp = new LinkedList<>();
+            if(p.right.data!=null){
+                queue[++rear]=p.right;
+            }
+            if(front==last){
+                high++;
+                System.out.println(levelNum);
+                if(maxNum<levelNum)
+                    maxNum=levelNum;
+                last=rear;
+                levelNum=0;
+            }
         }
-
-        System.out.print(maxWidth);
+        System.out.println("树的宽度为："+maxNum);
+        System.out.println("树的高度为："+high);
     }
 
+    //求叶子节点的个数
+    public void printleaf() {
+        int leaf = getNumleaf(root);
+        System.out.print(leaf);
+    }
+
+    public int getNumleaf(Node p){
+        if(p==null)
+            return 0;
+        if(p.left==null&&p.right==null){
+            return 1;
+        }
+            return getNumleaf(p.left)+getNumleaf(p.right);
+    }
 }
-
-
-
-//    private void printPreOderByRecursion(Node node) {
-//
-//        if (node == null)
-//            return;
-//        printNode(node);
-//        printPreOderByRecursion(node.left);
-//        printPreOderByRecursion(node.right);
-//
-//    }
-//
-//    public void printPreOderByRecursion() {
-//
-//        printPreOderByRecursion(root);
-//    }
-//
-//    private void printInOderByRecursion(Node node) {
-//
-//        if (node == null)
-//            return;
-//
-//        printInOderByRecursion(node.left);
-//        printNode(node);
-//        printInOderByRecursion(node.right);
-//
-//    }
-//
-//    public void printInOderByRecursion() {
-//        printInOderByRecursion(root);
-//    }
-//
-//    private void printPostOderByRecursion(Node node) {
-//
-//        if (node == null)
-//            return;
-//
-//        printPostOderByRecursion(node.left);
-//        printPostOderByRecursion(node.right);
-//        printNode(node);
-//
-//    }
-//
-//    public void printPostOderByRecursion() {
-//
-//        printPostOderByRecursion(root);
-//    }
