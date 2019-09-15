@@ -6,14 +6,14 @@
 //import org.apache.spark.api.java.JavaRDD;
 //import org.apache.spark.api.java.function.Function;
 //import org.apache.spark.api.java.function.PairFunction;
-//import org.apache.spark.sql.Dataset;
-//import org.apache.spark.sql.Row;
-//import org.apache.spark.sql.RowFactory;
-//import org.apache.spark.sql.SparkSession;
-//import org.apache.spark.sql.types.DataType;
-//import org.apache.spark.sql.types.DataTypes;
-//import org.apache.spark.sql.types.StructField;
-//import org.apache.spark.sql.types.StructType;
+//import org.apache.spark.sql.sql.Dataset;
+//import org.apache.spark.sql.sql.Row;
+//import org.apache.spark.sql.sql.RowFactory;
+//import org.apache.spark.sql.sql.SparkSession;
+//import org.apache.spark.sql.sql.types.DataType;
+//import org.apache.spark.sql.sql.types.DataTypes;
+//import org.apache.spark.sql.sql.types.StructField;
+//import org.apache.spark.sql.sql.types.StructType;
 //import scala.Tuple2;
 //
 //import java.util.ArrayList;
@@ -26,7 +26,7 @@
 //        //从文件中获取的数据
 //        Dataset<Row> stu1DF=sparkSession.read().json("/home/hdc/data/stu1_json");
 //        stu1DF.createOrReplaceTempView("stu1");
-//        Dataset<Row> stuNameDF=sparkSession.sql("select name,score from stu1 where score>=80");
+//        Dataset<Row> stuNameDF=sparkSession.sql.sql("select name,score from stu1 where score>=80");
 //        List<String> stuNameList=stuNameDF.javaRDD().map(new Function<Row, String>() {
 //            public String call(Row row) throws Exception {
 //                return row.getString(0);
@@ -44,7 +44,7 @@
 //        }
 //        str_SQL+=")";
 //
-//        Dataset<Row> stuInfo=sparkSession.sql(str_SQL);
+//        Dataset<Row> stuInfo=sparkSession.sql.sql(str_SQL);
 //        JavaPairRDD<String,Tuple2<Integer,Integer>>stuRDD=
 //        stu1DF.javaRDD().mapToPair(new PairFunction<Row, String, Integer>() {
 //            @Override

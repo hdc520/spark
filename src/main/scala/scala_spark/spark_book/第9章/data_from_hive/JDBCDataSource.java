@@ -5,14 +5,14 @@
 //import org.apache.spark.api.java.function.Function;
 //import org.apache.spark.api.java.function.PairFunction;
 //import org.apache.spark.api.java.function.VoidFunction;
-//import org.apache.spark.sql.Dataset;
-//import org.apache.spark.sql.Row;
-//import org.apache.spark.sql.RowFactory;
-//import org.apache.spark.sql.SparkSession;
-//import org.apache.spark.sql.types.*;
+//import org.apache.spark.sql.sql.Dataset;
+//import org.apache.spark.sql.sql.Row;
+//import org.apache.spark.sql.sql.RowFactory;
+//import org.apache.spark.sql.sql.SparkSession;
+//import org.apache.spark.sql.sql.types.*;
 //import scala.Tuple2;
-//import java.sql.Connection;
-//import java.sql.DriverManager;
+//import java.sql.sql.Connection;
+//import java.sql.sql.DriverManager;
 //import java.util.ArrayList;
 //import java.util.HashMap;
 //import java.util.List;
@@ -82,7 +82,7 @@
 //       stuRDF.javaRDD().foreach(new VoidFunction<Row>() {
 //           @Override
 //           public void call(Row row) throws Exception {
-//               String sql="insert into good_student_table values ("+
+//               String sql.sql="insert into good_student_table values ("+
 //                       "'"+String.valueOf(row.getString(0))+"',"
 //                       +Integer.valueOf(String.valueOf(row.get(1)))+"'"
 //                       +Integer.valueOf(String.valueOf(row.get(2)))+")";
@@ -90,7 +90,7 @@
 //               Connection connection= DriverManager.getConnection(
 //                       "jdbc:mysql://localhost:3306/testDB","root",""
 //               );
-//               connection.createStatement().execute(sql);
+//               connection.createStatement().execute(sql.sql);
 //           }
 //       });
 //    }

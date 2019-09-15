@@ -1,8 +1,8 @@
 //package scala_spark.spark_book.第9章
 //
 //import org.apache.spark.SparkConf
-//import org.apache.spark.sql.types.{IntegerType, StringType, StructField}
-//import org.apache.spark.sql.{Row, SparkSession, types}
+//import org.apache.spark.sql.sql.types.{IntegerType, StringType, StructField}
+//import org.apache.spark.sql.sql.{Row, SparkSession, types}
 //
 //object join_json {
 //  def main(args: Array[String]): Unit = {
@@ -10,7 +10,7 @@
 //    val sparkSession=SparkSession.builder().config(conf).getOrCreate();
 //    val stuScoreDF=sparkSession.read.json("/home/hdc/data/stu1_json")
 //    stuScoreDF.createOrReplaceTempView("stu_score")
-//    val StuGoodScoreDF=sparkSession.sql("select name,score from stu_score where score>80")
+//    val StuGoodScoreDF=sparkSession.sql.sql("select name,score from stu_score where score>80")
 //    val stuGoodName=StuGoodScoreDF.rdd.map(name=>name.getString(0)).collect()
 //
 //    val stuInfoDF=sparkSession.read.json("/home/hdc/data/stu2_json")
@@ -23,7 +23,7 @@
 //        str_SQL+=","
 //    }
 //    str_SQL+=")"
-//    val StuGoodInfoDF=sparkSession.sql(str_SQL)
+//    val StuGoodInfoDF=sparkSession.sql.sql(str_SQL)
 //    val stuGoodInfo= StuGoodScoreDF.rdd
 //      .map(row=>(row.getAs[String]("name"),row.getAs[Long]("score"))).join(
 //        StuGoodScoreDF.rdd.map{line=>

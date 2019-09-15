@@ -13,7 +13,7 @@ public class sql_data_from_table {
         df.show();
         //创建暂时视图
 //        df.createOrReplaceTempView("student1");
-//        Dataset<Row> sqldf=sparkSession.sql("select max(score),class from student group by class");
+//        Dataset<Row> sqldf=sparkSession.sql.sql("select max(score),class from student group by class");
 //        sqldf.show();
         try{
             df.createGlobalTempView("student");

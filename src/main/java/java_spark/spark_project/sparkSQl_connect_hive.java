@@ -9,7 +9,7 @@ public class sparkSQl_connect_hive {
                 .builder()
                 .appName("Java Spark Hive Example")
                 .master("local")
-                //.config("spark.sql.warehouse.dir", "/user/hive/warehouse")
+                //.config("spark.sql.sql.warehouse.dir", "/user/hive/warehouse")
 //                .config("hadoop.home.dir", "/user/hive/warehouse")
                 .enableHiveSupport()
                 .getOrCreate();
