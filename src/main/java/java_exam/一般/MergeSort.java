@@ -2,7 +2,7 @@ package java_exam.一般;
 
 public class MergeSort {
     public static void main(String[] args) {
-        int a[]={2,6,1,3,7,4,5,8,0,9};
+        int a[]={9,8,7,6,5,4,3,2,1,0};
         sort(a,0,a.length-1);
         for(int i:a){
             System.out.print(i+" ");
