@@ -329,6 +329,7 @@ where tmp.rank<=4
  select score.s_id,sum(s_score) sumscore,row_number()over(order by sum(s_score) desc) Ranking
  from score
  group by score.s_id
+ -- 加不加order by没有区别
  order by sumscore desc;
 
 -- 21、查询不同老师所教不同课程平均分从高到低显示:
@@ -390,6 +391,9 @@ from student join(
  	) c; 
 
   -- 23、统计各科成绩各分数段人数：课程编号,课程名称,[100-85],[85-70],[70-60],[0-60]及所占百分比
+
+  select tmp.id,sum1,sum1/num rate_60,sum2,sum2/num rate_60_70,sum3,sum3/num rate_70_80,sum4,sum4/num rate_80
+  from(
   select s.c_id id,c_name,count(s.c_id) num,
   sum(case when s_score<60 then 1 else 0 end) sum1,
   sum(case when s_score<70 and s_score>=60 then 1 else 0 end) sum2,
@@ -397,3 +401,229 @@ from student join(
   sum(case when s_score>=70 and s_score<85 then 1 else 0 end) sum3
   from score s join course c on s.c_id=c.c_id
   group by c.c_id,c_name
+  )tmp
+
+--24、查询学生平均成绩及其名次:
+select student.s_id,student.s_name,tmp.*
+ from student join(
+ select s_id,avg(s_score) average,row_number() over(order by avg(s_score) desc) rank
+ from score
+ group by s_id
+)tmp on student.s_id=tmp.s_id
+
+ -- 25、查询各科成绩前三名的记录
+-- mysql
+select tmp.c_id,student.s_id,student.s_name,tmp.Score
+from student join(
+ select s1.c_id,s1.s_id,s1.s_score Score
+ from score s1
+ where 3>(
+  select count(distinct(s2.s_score))
+  from score s2
+  where s1.c_id=s2.c_id and s1.s_score<s2.s_score
+ )
+)tmp on student.s_id=tmp.s_id
+ order by tmp.c_id,Score desc
+
+ -- hive
+ select tmp.c_id,tmp.s_id,student.s_name,tmp.s_score,tmp.rank
+ from(
+  select s_id,c_id,s_score,row_number() over(partition by c_id order by s_score desc) rank
+  from score
+ )tmp join student on student.s_id=tmp.s_id
+ where tmp.rank<=3
+
+-- 26、查询每门课程被选修的学生数:
+select c_id,count(s_id)
+from score
+group by c_id
+
+select c.c_id,c.c_name,tmp.number from course c
+    join (select c_id,count(1) as number from score
+        where score.s_score<60 group by score.c_id)tmp
+    on tmp.c_id=c.c_id;
+
+ -- 27、查询出只有两门课程的全部学生的学号和姓名:
+select student.s_id,student.s_name
+from(
+ select s_id,count(c_id) num
+ from score
+ group by s_id having num=2
+)tmp join student on tmp.s_id=student.s_id
+
+ -- 28、查询男生、女生人数:
+ select sum(case s_sex when '男' then 1 else 0 end) male,
+        sum(case s_sex when '女' then 1 else 0 end) female
+ from student
+
+select s_sex,count(s_sex)
+from student
+group by s_sex
+
+-- 查询同名同性学生名单，并统计同名人数:
+select count(*)
+from student s1 join student s2 on s1.s_name=s2.s_name and s1.s_sex=s2.s_sex
+where s1.s_id!=s2.s_id
+
+-- 31、查询1990年出生的学生名单:
+select student.*
+from student
+where student.s_birth like "1990%"
+
+ --32、查询每门课程的平均成绩，结果按平均成绩降序排列，平均成绩相同时，按课程编号升序排列:
+ select c_id,avg(s_score) average
+ from score
+ group by c_id
+ order by average desc,c_id asc;
+
+ -- 33、查询平均成绩大于等于85的所有学生的学号、姓名和平均成绩:
+
+select student.s_id,student.s_name,average
+from student join(
+ select s_id,avg(s_score) average
+ from score
+ group by s_id having average>85
+)tmp on student.s_id=tmp.s_id
+
+ -- 34、查询课程名称为"数学"，且分数低于60的学生姓名和分数:
+
+select student.s_name,mathScore
+from student join(
+ select s_id,score.s_score mathScore
+ from score join course on score.c_id=course.c_id
+ where c_name='数学' and s_score<60
+)tmp on student.s_id=tmp.s_id
+
+-- 35、查询所有学生的课程及分数情况:
+select s_name,
+       max(case c_name when '语文' then s_score else 0 end) chinese,
+       max(case c_name when '数学' then s_score else 0 end) math,
+       max(case c_name when '英语' then s_score else 0 end) Eenlish,
+       sum(s_score)
+from student join score on student.s_id=score.s_id
+             join course on score.c_id=course.c_id
+group by s_name
+
+-- 36、查询任何一门课程成绩在70分以上的学生姓名、课程名称和分数:
+select s_name,
+       max(case c_name when '语文' and s_score>70 then s_score else 0 end) chinese,
+       max(case c_name when '数学' and s_score>70 then s_score else 0 end) math,
+       max(case c_name when '英语' and s_score>70 then s_score else 0 end) Eenlish,
+       sum(s_score)
+from student join score on student.s_id=score.s_id
+             join course on score.c_id=course.c_id
+group by s_name
+
+
+select student.s_name,course.c_name,tmp.s_score
+from(
+ select s_id,c_id,s_score
+ from score
+ where s_score>70
+)tmp join student on tmp.s_id=student.s_id join course on tmp.c_id=course.c_id
+
+ -- 37、查询课程不及格的学生:
+select student.*,c_id
+from(
+ select s_id,c_id
+ from score
+ where s_score<60
+)tmp join student on tmp.s_id=student.s_id
+
+-- 38、查询课程编号为01且课程成绩在80分以上的学生的学号和姓名:
+select student.s_id,student.s_name
+from(
+ select s_id
+ from score
+ where c_id='01' and s_score>=80
+)tmp join student on student.s_id=tmp.s_id
+
+-- 9、求每门课程的学生人数:
+select c_id,count(s_id)
+from score
+group by c_id
+
+ -- 40、查询选修"张三"老师所授课程的学生中，成绩最高的学生信息及其成绩:
+ select student.s_id,student.s_name,s_score
+ from student join(
+  select s_id,c_id,s_score
+  from score s1
+  where s_score>=all(
+   select s_score
+   from score s2
+   where s1.c_id=s2.c_id)
+ )tmp on student.s_id=tmp.s_id join course on tmp.c_id=course.c_id join teacher on course.t_id=teacher.t_id
+ where t_name='张三'
+
+-- hive中
+select student.*,maxScore
+from student join(
+    select s_id,score.c_id,max(s_score) maxScore
+    from score join course on score.c_id=course.c_id join teacher on teacher.t_id=course.t_id
+    where t_name='张三'
+    group by s_id,score.c_id
+    limit 1
+)tmp on student.s_id=tmp.s_id
+
+-- 41、查询不同课程成绩相同的学生的学生编号、课程编号、学生成绩:
+select distinct s1.*,s2.*
+from score s1,score s2
+where s1.c_id!=s2.c_id and s1.s_score=s2.s_score
+
+-- 42、查询每门课程成绩最好的前三名:
+-- mysql中
+
+select s1.c_id,s1.s_id,s1.s_score Score
+from score s1
+where 3>(
+ select count(distinct(s2.s_score))
+ from score s2
+ where s1.c_id=s2.c_id and s2.s_score>s1.s_score
+)
+order by s1.c_id,Score desc;
+-- hive中
+select tmp.c_id,student.s_id,student.s_name,tmp.Score
+from student join(
+ select s1.c_id,s1.s_id,s1.s_score Score
+ from score s1
+ where 3>(
+  select count(distinct(s2.s_score))
+  from score s2
+  where s1.c_id=s2.c_id and s2.s_score>s1.s_score
+ )
+)tmp on student.s_id=tmp.s_id
+order by tmp.c_id,tmp.Score desc
+
+-- 43、统计每门课程的学生选修人数（超过5人的课程才统计）:
+-- – 要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列
+select c_id,count(c_id) num
+from score
+group by c_id having num>5
+order by num desc,c_id
+
+-- 44、检索至少选修两门课程的学生学号:
+select s_id, count(c_id)
+from score
+group by s_id having count(c_id)>=2
+
+-- 45、查询选修了全部课程的学生信息:
+select student.*,tmp.num
+from student join(
+ select s_id, count(c_id) num
+ from score
+ group by s_id having num=3
+)tmp on student.s_id=tmp.s_id
+
+-- 46、查询各学生的年龄(周岁):
+-- – 按照出生日期来算，当前月日 < 出生年月的月日则，年龄减一
+select s_name,s_birth,
+	floor(
+		(datediff(current_date,s_birth) - floor((year(current_date) - year(s_birth))/4))/365
+		) as age
+from student;
+
+select student.*,floor(datediff(CURRENT_DATE,s_birth)/365) age
+from student
+
+-- 47、查询本周过生日的学生:
+select * from student where weekofyear(CURRENT_DATE)+1 =weekofyear(s_birth);
