@@ -665,3 +665,22 @@ from (
 	where year = "2017"
 ) tmp
 where tmp.rank <= 3;
+
+-- 求第N高的薪水
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  SET n = N-1;
+  RETURN (     
+  SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT n,1
+  );
+END
+
+-- mysql求名次
+select a.Score,
+(
+select count(distinct b.Score)
+    from Scores b
+    where b.Score>=a.Score
+)rank
+from Scores a
+order by a.Score desc
