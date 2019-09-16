@@ -654,3 +654,14 @@ select (
        from user
        where time='yesterday'
      )
+
+
+-- 分组TopN，选出今年每个学校、每个年级、分数前三的科目
+select tmp.* 
+from (
+	select school, grade, course, score,
+	row_number() over (partition by school, grade, course order by score desc) rank
+	from info 
+	where year = "2017"
+) tmp
+where tmp.rank <= 3;
