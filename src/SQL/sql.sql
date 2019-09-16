@@ -565,6 +565,16 @@ from student join(
     limit 1
 )tmp on student.s_id=tmp.s_id
 
+select student.*,s_score
+from student join(
+select s_id,score.c_id,s_score
+    from score join course on score.c_id=course.c_id join teacher on teacher.t_id=course.t_id
+    where t_name='张三'
+    order by s_score desc 
+    limit 1
+)tmp on student.s_id=tmp.s_id
+
+
 -- 41、查询不同课程成绩相同的学生的学生编号、课程编号、学生成绩:
 select distinct s1.*,s2.*
 from score s1,score s2
@@ -572,7 +582,6 @@ where s1.c_id!=s2.c_id and s1.s_score=s2.s_score
 
 -- 42、查询每门课程成绩最好的前三名:
 -- mysql中
-
 select s1.c_id,s1.s_id,s1.s_score Score
 from score s1
 where 3>(
@@ -593,6 +602,13 @@ from student join(
  )
 )tmp on student.s_id=tmp.s_id
 order by tmp.c_id,tmp.Score desc
+
+select tmp.c_id,student.s_id,student.s_name,tmp.s_score,tmp.rank
+from student join(
+     select s_id,c_id,s_score,row_number() over(partition by c_id order by s_score desc) rank
+     from score
+)tmp on student.s_id=tmp.s_id
+where tmp.rank<3
 
 -- 43、统计每门课程的学生选修人数（超过5人的课程才统计）:
 -- – 要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列
@@ -627,3 +643,14 @@ from student
 
 -- 47、查询本周过生日的学生:
 select * from student where weekofyear(CURRENT_DATE)+1 =weekofyear(s_birth);
+
+-- 留存率表 user(u_id,time)
+select (
+       select count(distinct u_id)
+       from user
+       where time='today'
+     )/(
+       select count(1)
+       from user
+       where time='yesterday'
+     )
