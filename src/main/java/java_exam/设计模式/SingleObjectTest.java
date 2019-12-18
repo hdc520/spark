@@ -5,6 +5,17 @@ public class SingleObjectTest {
         SingleObject object=SingleObject.getInstance();
         SingleObject object1=SingleObject.getInstance();
         object.showMessage();
-
+        if(object.equals(object1)){
+            System.out.println("yes");
+        }
+        else{
+            System.out.println("no");
+        }
+        if(object==object1){
+            System.out.println("yes");
+        }
+        else{
+            System.out.println("no");
+        }
     }
 }
